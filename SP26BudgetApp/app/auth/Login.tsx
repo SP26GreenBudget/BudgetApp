@@ -3,13 +3,15 @@ import { StyleSheet, Text, TouchableOpacity, View, Button, TextInput } from "rea
 import { useRouter } from "expo-router";
 
 const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [inputs, setInputs] = useState({
+    email: "",
+    password: "",
+  })
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter(); 
 
   const handleLogin = () => {
-    if (!email || !password) {
+    if (!inputs.email || !inputs.password) {
       setErrorMessage("Please enter both email and password.");
       return;
     }
@@ -27,14 +29,14 @@ const Login = () => {
         </Text>
         <TextInput
           placeholder="Email"
-          value={email}
-          onChangeText={setEmail}
+          value={inputs.email}
+          onChangeText={(text) => setInputs({...inputs, email: text})}
           style={styles.input}
         />
         <TextInput
           placeholder="Password"
-          value={password}
-          onChangeText={setPassword}
+          value={inputs.password}
+          onChangeText={(text) => setInputs({...inputs, password: text})}
           secureTextEntry
           style={styles.input}
         />
