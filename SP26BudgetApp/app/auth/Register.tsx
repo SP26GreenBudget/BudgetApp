@@ -4,19 +4,21 @@ import { TouchableOpacity, Text, View, TextInput, StyleSheet, Alert, } from "rea
 
 const Register = () => {
   const router = useRouter();
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const[inputs, setInputs] = useState ({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  })
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleRegister = () => {
-    if (!password || !firstName || !lastName || !confirmPassword || !confirmPassword) {
+    if (!inputs.password || !inputs.firstName || !inputs.lastName || !inputs.confirmPassword || !inputs.email) {
       setErrorMessage("Please ensure all text fields are filled in");
       console.log("Some of the user information was missing");
       return;
-    } else if (password !== confirmPassword) {
+    } else if (inputs.password !== inputs.confirmPassword) {
       setErrorMessage("Passwords do not match ");
       console.log("Password and confirmpassword do not match");
       return;
@@ -24,7 +26,7 @@ const Register = () => {
     // if password looks good router push to login page
     // implement fire base auth logic here
     console.log("Successfully registered");
-    console.log(name, email, password, confirmPassword);
+    console.log(inputs)
     router.push("/auth/Login");
     return;
   };
@@ -43,42 +45,45 @@ const Register = () => {
         {/* text inputs for variables */}
         <TextInput
           placeholder="First Name"
-          value={firstName}
-          onChangeText={setFirstName}
+          value = {inputs.firstName}
+          onChangeText={(text) => setInputs({...inputs, firstName: text})}
           style={styles.input}
         />
         <TextInput
           placeholder="Last Name"
-          value={lastName}
-          onChangeText={setLastName}
+          value={inputs.lastName}
+          onChangeText={(text) => setInputs({...inputs, lastName: text})}
           style={styles.input}
         />
         <TextInput
           placeholder="Email"
-          value={email}
-          onChangeText={setEmail}
+          value={inputs.email}
+          onChangeText={(text) => setInputs({...inputs, email: text})}
           style={styles.input}
         />
         <TextInput
           placeholder="Password"
           secureTextEntry
-          value={password}
-          onChangeText={setPassword}
+          value={inputs.password}
+          onChangeText={(text) => setInputs({...inputs, password: text})}
           style={styles.input}
         />
         <TextInput
           placeholder="Confirm Password"
           secureTextEntry
-          value={confirmPassword}
-          onChangeText={setConfirmPassword}
+          value={inputs.confirmPassword}
+          onChangeText={(text) => setInputs({...inputs, confirmPassword: text})}
           style={styles.input}
         />
+
+        { /* for registering users as well as sending user to login page if they chose */}
         <TouchableOpacity
           onPress={handleRegister}
           style={[styles.button, { marginBottom: 10 }]}
         >
           <Text style={styles.buttonText}>Register</Text>
         </TouchableOpacity>
+
         <TouchableOpacity
           onPress={() => {
             router.push("/auth/Login");
@@ -91,13 +96,16 @@ const Register = () => {
   );
 }
 
+// style sheet
 const styles = StyleSheet.create({
+  // set everything to center
   container: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#0A0F1E",
   },
+  // "card" the centered box that all the components sit inside of 
   card:{
     backgroundColor: '#1E293B', 
     borderWidth: 1,
@@ -106,15 +114,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 25,
   },
+  // the "login" text
   headerText: {
     color: "white",
     fontSize: 25,
   },
+  // centering header
   header: {
     alignItems: "flex-start",
-    paddingLeft: -50,
     paddingBottom: 15,
   },
+  // input boxes
   input: {
     borderWidth: 1,
     borderColor: "#334155",
@@ -125,6 +135,7 @@ const styles = StyleSheet.create({
     color: "#F8FAFC",
     backgroundColor: "#1E293B",
   },
+  // register button
   button: {
     justifyContent: "center",
     alignItems: "center",
@@ -135,11 +146,13 @@ const styles = StyleSheet.create({
     padding: 10,
     marginTop: 10,
   },
+  // button text
   buttonText: {
     color: "#F8FAFC",
     fontWeight: "bold",
     textAlign: "center",
   },
+  // text for user to switch to login
   textSecondary: {
     color: "#CBD5E1",
     marginTop: 10,
