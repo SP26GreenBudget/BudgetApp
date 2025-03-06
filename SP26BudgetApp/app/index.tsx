@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View, Button, TextInput } from "react-native";
 import { useRouter } from "expo-router";
+import {THEME} from './tabs/_layout'
+
 
 const Login = () => {
   const [inputs, setInputs] = useState({
@@ -17,6 +19,7 @@ const Login = () => {
     }
 
     console.log("Logging in...");
+    router.push("./link")
   };
 
   
@@ -43,7 +46,7 @@ const Login = () => {
         <TouchableOpacity onPress={handleLogin} style={styles.button}>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => router.push('/auth/Register')}>
+        <TouchableOpacity onPress={() => router.push('./auth/register')}>
           <Text style={styles.textSecondary}>New User? Register</Text>
         </TouchableOpacity>
       </View>

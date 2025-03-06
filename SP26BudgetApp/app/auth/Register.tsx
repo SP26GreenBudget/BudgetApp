@@ -27,7 +27,7 @@ const Register = () => {
     // implement fire base auth logic here
     console.log("Successfully registered");
     console.log(inputs)
-    router.push("/auth/Login");
+    router.push("/");
     return;
   };
 
@@ -86,7 +86,7 @@ const Register = () => {
 
         <TouchableOpacity
           onPress={() => {
-            router.push("/auth/Login");
+            router.push("/");
           }}
         >
           <text style={styles.textSecondary}>Returning user? Login.</text>
