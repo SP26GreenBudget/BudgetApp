@@ -16,6 +16,7 @@ const Login = () => {
       return;
     }
 
+    router.push("../link/plaidLink")
     console.log("Logging in...");
   };
 
@@ -43,7 +44,7 @@ const Login = () => {
         <TouchableOpacity onPress={handleLogin} style={styles.button}>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => router.push('/auth/Register')}>
+        <TouchableOpacity onPress={() => router.push('./Register')}>
           <Text style={styles.textSecondary}>New User? Register</Text>
         </TouchableOpacity>
       </View>

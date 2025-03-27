@@ -89,7 +89,7 @@ const Register = () => {
             router.push("/");
           }}
         >
-          <text style={styles.textSecondary}>Returning user? Login.</text>
+          <Text style={styles.textSecondary}>Returning user? Login.</Text>
         </TouchableOpacity>
       </View>
     </View>

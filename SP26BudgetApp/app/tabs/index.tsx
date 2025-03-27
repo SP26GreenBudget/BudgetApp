@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet, FlatList, Pressable, SafeAreaView } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { THEME } from './_layout';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface Transaction {
   id: string;
@@ -11,10 +11,106 @@ interface Transaction {
   category: string;
 }
 
-const recentTransactions: Transaction[] = [
-  { id: '1', description: 'Groceries', amount: -50.00, date: 'Today', category: 'Food' },
-  { id: '2', description: 'Salary', amount: 1000.00, date: 'Yesterday', category: 'Income' },
+const recentTransactions = [
+  {
+    id:'0',
+    description: 'Venmo Cash Out',
+    amount: 25.00, 
+    date: '2025-03-22',
+    category: 'Income'
+  },
+  { 
+    id: '1', 
+    description: 'Uber 072515 SF**POOL**', 
+    amount: -6.33, 
+    date: '2025-03-03', 
+    category: 'Transportation' 
+  },
+  { 
+    id: '2', 
+    description: 'INTRST PYMNT', 
+    amount: -4.22, 
+    date: '2025-03-15', 
+    category: 'Income' 
+  },
+  { 
+    id: '3', 
+    description: 'SparkFun', 
+    amount: -89.4, 
+    date: '2025-03-16', 
+    category: 'Electronics' 
+  },
+  { 
+    id: '4', 
+    description: "McDonald's", 
+    amount: -12, 
+    date: '2025-03-17', 
+    category: 'Food' 
+  },
+  { 
+    id: '5', 
+    description: 'Starbucks', 
+    amount: -4.33, 
+    date: '2025-03-17', 
+    category: 'Food' 
+  },
+  { 
+    id: '6', 
+    description: 'United Airlines', 
+    amount: -500, 
+    date: '2025-03-18', 
+    category: 'Travel' 
+  },
+  { 
+    id: '9', // Added an income transaction in the middle
+    description: 'DIRECT DEPOSIT - SALARY', 
+    amount: 2500.00, 
+    date: '2025-03-19', 
+    category: 'Income' 
+  },
+  { 
+    id: '7', 
+    description: 'Uber 063015 SF**POOL**', 
+    amount: -5.4, 
+    date: '2025-03-20', 
+    category: 'Transportation' 
+  },
+  { 
+    id: '8', 
+    description: 'CREDIT CARD 3333 PAYMENT', 
+    amount: -25, 
+    date: '2025-03-20', 
+    category: 'Payment' 
+  },
+  {
+    id: '10', 
+    description: 'RENTAL INCOME',
+    amount: 1200.00,
+    date: '2025-03-22',
+    category: 'Income'
+  }
 ];
+
+function calculateExpenses(transactions: Transaction[]){
+  let totalIncome = 0;
+  let totalExpenses = 0;
+
+  for(const transaction of transactions){
+    if(transaction.amount < 0){
+      totalExpenses += transaction.amount;
+    }
+    else{
+      totalIncome += transaction.amount;
+    }
+  }
+
+  return{
+      totalExpenses: totalExpenses, 
+      totalIncome: totalIncome, 
+      netTotal: totalIncome + totalExpenses
+  };
+}
+
 
 const COLORS = {
   expense: '#D4A373', // Light sandy tan for expenses
@@ -22,6 +118,16 @@ const COLORS = {
 };
 
 export default function Home() {
+  const [income, setIncome] = useState(0);
+  const [spent, setSpent] = useState(0);
+
+  useEffect(() => {
+    const { totalIncome, totalExpenses } = calculateExpenses(recentTransactions);
+    setIncome(totalIncome);
+    setSpent(Math.abs(totalExpenses)); 
+  }, [])
+
+
   const renderHeader = () => (
     <>
       <View style={styles.balanceCard}>
@@ -41,7 +147,7 @@ export default function Home() {
             color={THEME.accent}
             style={styles.statIcon} 
           />
-          <Text style={[styles.statAmount, { color: THEME.accent }]}>$2,000</Text>
+          <Text style={[styles.statAmount, { color: THEME.accent }]}>${income}</Text> {/* the numerical value of income calculated above */}
           <Text style={styles.statLabel}>Income</Text>
         </View>
         <View style={styles.statCard}>
@@ -51,7 +157,7 @@ export default function Home() {
             color={COLORS.expense} 
             style={styles.statIcon} 
           />
-          <Text style={[styles.statAmount, { color: COLORS.expense }]}>$500</Text>
+          <Text style={[styles.statAmount, { color: COLORS.expense }]}>${spent}</Text>
           <Text style={styles.statLabel}>Spent</Text>
         </View>
       </View>

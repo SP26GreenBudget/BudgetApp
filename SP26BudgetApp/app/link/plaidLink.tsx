@@ -13,17 +13,14 @@ const linkUiPage = () => {
       <View style={styles.content}>
         {/* Header Section */}
         <View style={styles.header}>
-          <Text style={styles.title}>Plaid Quickstart</Text>
-          <Text style={styles.subtitle}>A sample end-to-end integration with Plaid</Text>
+          <Text style={styles.title}>Plaid Link</Text>
+          <Text style={styles.subtitle}>Link your bank account</Text>
         </View>
 
         {/* Description Section */}
         <View style={styles.description}>
           <Text style={styles.descriptionText}>
-            The Plaid flow begins when your user wants to connect their bank account to your app.
-            Simulate this by clicking the button below to launch Link, the client-side
-            component that your users will interact with in order to link their accounts to Plaid
-            and allow you to access their accounts via the Plaid API.
+            Please follow the instructions on screen to securely link your bank account to your profile.
           </Text>
         </View>
 
