@@ -1,20 +1,35 @@
 import React, { useState } from "react";
 import { useRouter } from "expo-router";
-import { TouchableOpacity, Text, View, TextInput, StyleSheet, Alert, } from "react-native";
+import {
+  TouchableOpacity,
+  Text,
+  View,
+  TextInput,
+  StyleSheet,
+  Alert,
+} from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+import { THEME } from "../tabs/_layout";
 
 const Register = () => {
   const router = useRouter();
-  const[inputs, setInputs] = useState ({
+  const [inputs, setInputs] = useState({
     firstName: "",
     lastName: "",
     email: "",
     password: "",
     confirmPassword: "",
-  })
+  });
   const [errorMessage, setErrorMessage] = useState("");
 
   const handleRegister = () => {
-    if (!inputs.password || !inputs.firstName || !inputs.lastName || !inputs.confirmPassword || !inputs.email) {
+    if (
+      !inputs.password ||
+      !inputs.firstName ||
+      !inputs.lastName ||
+      !inputs.confirmPassword ||
+      !inputs.email
+    ) {
       setErrorMessage("Please ensure all text fields are filled in");
       console.log("Some of the user information was missing");
       return;
@@ -26,7 +41,7 @@ const Register = () => {
     // if password looks good router push to login page
     // implement fire base auth logic here
     console.log("Successfully registered");
-    console.log(inputs)
+    console.log(inputs);
     router.push("/");
     return;
   };
@@ -36,6 +51,11 @@ const Register = () => {
     // main view, contains name, user, pass, confirm pass.
     <View style={styles.container}>
       {/* card */}
+
+      <View style={styles.logo__container}>
+        <Ionicons name="planet-outline" size={44} color={THEME.primary} />
+        <Text style={styles.logo__text}>PlanIt</Text>
+      </View>
       <View style={styles.card}>
         {/* header text */}
         <View style={styles.header}>
@@ -45,38 +65,40 @@ const Register = () => {
         {/* text inputs for variables */}
         <TextInput
           placeholder="First Name"
-          value = {inputs.firstName}
-          onChangeText={(text) => setInputs({...inputs, firstName: text})}
+          value={inputs.firstName}
+          onChangeText={(text) => setInputs({ ...inputs, firstName: text })}
           style={styles.input}
         />
         <TextInput
           placeholder="Last Name"
           value={inputs.lastName}
-          onChangeText={(text) => setInputs({...inputs, lastName: text})}
+          onChangeText={(text) => setInputs({ ...inputs, lastName: text })}
           style={styles.input}
         />
         <TextInput
           placeholder="Email"
           value={inputs.email}
-          onChangeText={(text) => setInputs({...inputs, email: text})}
+          onChangeText={(text) => setInputs({ ...inputs, email: text })}
           style={styles.input}
         />
         <TextInput
           placeholder="Password"
           secureTextEntry
           value={inputs.password}
-          onChangeText={(text) => setInputs({...inputs, password: text})}
+          onChangeText={(text) => setInputs({ ...inputs, password: text })}
           style={styles.input}
         />
         <TextInput
           placeholder="Confirm Password"
           secureTextEntry
           value={inputs.confirmPassword}
-          onChangeText={(text) => setInputs({...inputs, confirmPassword: text})}
+          onChangeText={(text) =>
+            setInputs({ ...inputs, confirmPassword: text })
+          }
           style={styles.input}
         />
 
-        { /* for registering users as well as sending user to login page if they chose */}
+        {/* for registering users as well as sending user to login page if they chose */}
         <TouchableOpacity
           onPress={handleRegister}
           style={[styles.button, { marginBottom: 10 }]}
@@ -94,7 +116,7 @@ const Register = () => {
       </View>
     </View>
   );
-}
+};
 
 // style sheet
 const styles = StyleSheet.create({
@@ -105,14 +127,26 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "#0A0F1E",
   },
-  // "card" the centered box that all the components sit inside of 
-  card:{
-    backgroundColor: '#1E293B', 
+  // "card" the centered box that all the components sit inside of
+  card: {
+    backgroundColor: "#1E293B",
     borderWidth: 1,
-    borderColor: '#334155',
-    padding: '3%',
-    alignItems: 'center',
+    borderColor: "#334155",
+    padding: "3%",
+    alignItems: "center",
     borderRadius: 25,
+  },
+  logo__container: {
+    alignSelf: "flex-start",
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  logo__text: {
+    fontSize: 30,
+    fontWeight: "600",
+    color: THEME.text,
+    justifyContent: "center",
+    marginLeft: 10,
   },
   // the "login" text
   headerText: {
