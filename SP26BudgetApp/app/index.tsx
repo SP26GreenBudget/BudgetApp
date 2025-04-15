@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { StyleSheet, Text, TouchableOpacity, View, Button, TextInput } from "react-native";
 import { useRouter } from "expo-router";
 import {THEME} from './tabs/_layout'
+import { Ionicons } from '@expo/vector-icons';
 
 
 const Login = () => {
@@ -27,6 +28,11 @@ const Login = () => {
   return (
     <View style={styles.container}>
       <View style={styles.card}>
+        <View style={styles.logo__container}>
+          <Ionicons name="planet-outline" size={44} color={THEME.primary} />
+          <Text style={styles.logo__text}>PlanIt</Text>
+        </View>
+
         <Text style={styles.headerText}>
           Login:
         </Text>
@@ -60,6 +66,19 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#0A0F1E",
+    position: 'relative',
+  },
+  logo__container:{
+    alignSelf: 'flex-start',
+    flexDirection: 'row',
+    alignItems: 'center'
+  },
+  logo__text:{
+    fontSize: 30,
+    fontWeight: '600',
+    color: THEME.text,
+    justifyContent: 'center',
+    marginLeft: 10,
   },
   card:{
     backgroundColor: '#1E293B', 
@@ -70,6 +89,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
   },
   headerText: {
+    marginTop: 15,
     color: "white",
     fontSize: 25,
   },
